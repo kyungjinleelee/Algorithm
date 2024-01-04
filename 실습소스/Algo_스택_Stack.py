@@ -5,7 +5,7 @@
 
 	class Stack: # 스택 (한쪽 끝으로만 자료를 넣고 뺄 수 있는 자료 구조)
 		def __init__(self):	# 스택의 구성
-			self.top = None	# 스택의 제일 위 
+			self.top = None	# 스택의 제일 위 (처음 만들었을 때는 당연히 None)
 
 		# push, pop, is_empty로 구성
 		def is_empty(self):	# 비었는지 안비었는지 보는 방법
