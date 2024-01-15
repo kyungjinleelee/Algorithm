@@ -6,7 +6,7 @@ class DisjointSet:		# 분리집합 구현
     def __init__(self, n):
         self.parent = list(range(n + 1))
 
-    def find(self, x):			          # 재귀적으로 부모 정점을 찾는 함수 
+    def find(self, x):			         # 재귀적으로 부모 정점을 찾는 함수 
         if self.parent[x] == x:
             return x
         self.parent[x] = self.find(self.parent[x])
@@ -27,18 +27,18 @@ if __name__ == '__main__':
 
     n, m = map(int, input().split())		# n: 정점 갯수, m: 다리 갯수
     s, e = map(int, input().split())		# s, e: 시작 정점과 끝 정점
-    bridge = []					                # bridge: 다리들의 정보를 담을 리스트 생성
-    for _ in range(m):				          # 다리들 정보를 받아옴
+    bridge = []					            # bridge: 다리들의 정보를 담을 리스트 생성
+    for _ in range(m):				        # 다리들 정보를 받아옴
         x, y, k = map(int, input().split())	# x, y= 정점 두개, k: 가중치
         bridge.append((k, x, y))		    # 가중치로 정렬할 것이기 때문에 가중치를 맨 앞에 넣어줌
-    bridge.sort()				                # 가중치로 오름차순으로 정렬되있을 것임
+    bridge.sort()				            # 가중치로 오름차순으로 정렬되있을 것임
     # << Disjoint Set을 활용하여 최소 가중치의 다리를 선택하면서 시작 정점과 끝 정점을 연결해주자 >>
-    djs = DisjointSet(n)			          # n개의 정점으로 돌릴 DisJointSet을 하나 만들어 줌 (=초기화)
-    last = 0					                  # last: 마지막으로 사용한 간선의 가중치
+    djs = DisjointSet(n)			        # n개의 정점으로 돌릴 DisJointSet을 하나 만들어 줌 (=초기화)
+    last = 0					            # last: 마지막으로 사용한 간선의 가중치
     while djs.find(s) != djs.find(e) and bridge: # 시작점이랑 끝점이 서로 다를 때(=연결 안됨) & bridge를 다 쓸 때까지 반복
         d, x, y = bridge.pop()			    # 가장 가중치 높은 간선을 보기 위해 맨 뒤에서 pop해줌 (d: 가중치)
-        last = d				                # d를 last에 넣어줘서 갱신
-        djs.union(x, y)				          # 두 개 정점을 union으로 합쳐줌
+        last = d				            # d를 last에 넣어줘서 갱신
+        djs.union(x, y)				        # 두 개 정점을 union으로 합쳐줌
     # DisjointSet에 시작점과 끝점이 같으면(=이어졌으면) last출력, 그렇지않으면 빼빼로 0개 출력
     print(last if djs.find(s) == djs.find(e) else 0) 
 
