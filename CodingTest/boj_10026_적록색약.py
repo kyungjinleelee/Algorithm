@@ -37,4 +37,3 @@ board = [input() for _ in range(n)]	# 우리가 보는 격자판
 # 적록색약인 사람이 보는 구역의 수를 구하기 위해 G를 R로 바꿈 ★
 new_board = [line.replace('G', 'R') for line in board]	# 적록색약이 보는 격자판
 print(count_section(board), count_section(new_board))
-# ㅇㅇㅇ
