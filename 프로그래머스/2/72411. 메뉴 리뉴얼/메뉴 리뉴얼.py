@@ -16,5 +16,7 @@ def solution(orders, course):
         # candidates 리스트에 있는 조합의 빈도수를 세고, 가장 빈번하게 나타나는 조합을 먼저 정렬
         sorted_candidates = Counter(candidates).most_common()
         # 가장 빈번하게 나타나는 조합 중에서 빈도수가 2 이상이고, 가장 빈도수가 높은 조합과 동일한 빈도수를 가지는 조합을 answer 리스트에 추가
-        answer += [menu for menu, cnt in sorted_candidates if cnt > 1 and cnt == sorted_candidates[0][1]]
+        for menu, cnt in sorted_candidates:
+            if cnt > 1 and cnt == sorted_candidates[0][1]:
+                answer.append(menu)
     return sorted(answer)   # 최종 결과 오름차순으로 정렬해서 반환 
