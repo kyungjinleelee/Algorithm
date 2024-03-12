@@ -19,4 +19,5 @@ def solution(orders, course):
         for menu, cnt in sorted_candidates:
             if cnt > 1 and cnt == sorted_candidates[0][1]:
                 answer.append(menu)
+        # answer += [menu for menu, cnt in sorted_candidates if cnt > 1 and cnt == sorted_candidates[0][1]] 리스트 컴프리헨션으로 이렇게 한 줄로 줄일 수 있다!
     return sorted(answer)   # 최종 결과 오름차순으로 정렬해서 반환 
