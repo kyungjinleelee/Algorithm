@@ -1,3 +1,9 @@
+"""
+로직
+1. 시작 노드를 큐에 넣고 방문 처리
+2. 큐에서 노드를 꺼내고(popleft()) 인접 노드 중 방문하지 않은 노드를 큐에 넣고 방문 처리
+3. 그리고 큐에 노드가 없을 때 까지 2번 과정 반복
+"""
 from collections import deque
 
 def solution(maps):
@@ -38,4 +44,8 @@ def solution(maps):
         return maps[len(maps)-1][len(maps[0])-1]
     
     answer = bfs(0, 0)
-    return -1 if answer == 1 else answer
+    if answer == 1:
+	    return -1
+    else:
+        return answer
+    # return -1 if answer == 1 else answer
