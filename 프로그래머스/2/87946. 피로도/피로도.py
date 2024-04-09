@@ -1,22 +1,25 @@
-from itertools import permutations
+answer = 0
+N = 0
+visited = []
 
-def solution(k, dungeons):
-    answer = -1
-    array = list(permutations(dungeons, len(dungeons)))
+def dfs(k, cnt, dungeons):
+    global answer
+    # 최대 방문 횟수 초기화
+    if cnt > answer:
+        answer = cnt
     
-    for each in array:
-        pirodo = k  # 현재 피로도
-        check = 0   # 탐험한 던전 수
-        
-        for dungeon in each:
-            # 현재 피로도가 현재 던전의 피로도보다 크거나 같으면 피로도 차감, 탐험한 던전 수 증가
-            if pirodo >= dungeon[0]:
-                pirodo -= dungeon[1]
-                check += 1
-            # 그렇지 않으면 다음 던전으로 ..
-            else:
-                continue
-                
-        if answer < check:
-            answer = check
+    for i in range(N):
+        if k >= dungeons[i][0] and not visited[i]:
+            # 방문 처리
+            visited[i] = 1
+            # 줄어든 피로도로 던전 방문 시작
+            dfs(k - dungeons[i][1], cnt + 1, dungeons)
+            # 해당 순서로 던전을 모두 방문했으니 다시 초기화
+            visited[i] = 0
+    
+def solution(k, dungeons):
+    global N, visited
+    N = len(dungeons)
+    visited = [0] * N
+    dfs(k, 0, dungeons)
     return answer
