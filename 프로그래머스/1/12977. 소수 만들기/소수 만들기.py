@@ -1,5 +1,4 @@
 from itertools import combinations
-import math
 
 def solution(nums):
     answer = 0
@@ -14,7 +13,7 @@ def solution(nums):
 
 # 소수 여부를 판별하는 함수
 def is_prime(n):
-    for i in range(2, int(math.sqrt(n)) + 1):
+    for i in range(2, int(n ** 0.5) + 1):
         if n % i == 0:
             return False
     return True
