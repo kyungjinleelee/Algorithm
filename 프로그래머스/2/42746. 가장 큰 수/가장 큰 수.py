@@ -1,17 +1,9 @@
 def solution(numbers):
-    # 각 숫자를 문자열로 먼저 변환
-    numbers = list(map(str, numbers))
+    # 각 숫자를 문자열로 변환하고, 비교를 위해 각 문자열을 3번 반복한 값을 기준으로 내림차순 정렬
+    sorted_numbers = sorted(map(str, numbers), key=lambda x: x*3, reverse=True)
     
-    # 두 수를 이어붙였을 때 큰 숫자 순서대로 정렬
-    numbers.sort(key = lambda x: x*3, reverse = True)
+    # 정렬된 문자열을 합쳐 가장 큰 수 생성
+    answer = ''.join(sorted_numbers)
     
-    # 예외 처리 (모든 수가 0일 경우)
-    if numbers[0] == '0':
-        return '0'
-    
-    # 정렬된 숫자 이어붙이기 
-    return ''.join(numbers)
-
-print(solution([0, 10, 7]))
-print(solution([5, 30, 5]))
-print(solution([0, 0, 0]))
+    # 모든 숫자가 "0"인 경우, "0"을 반환
+    return '0' if answer[0] == '0' else answer
