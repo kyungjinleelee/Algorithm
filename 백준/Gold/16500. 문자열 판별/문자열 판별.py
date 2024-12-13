@@ -5,7 +5,6 @@ words = set([input().strip() for _ in range(n)]) # 빠른 검색을 위해 단�
 # ['software', 'contest']
 visited = [False] * (len(s) + 1)
 
-# 조합으로 생성해서 만들어보기
 def find(current, index):
     if visited[index]:
         return
