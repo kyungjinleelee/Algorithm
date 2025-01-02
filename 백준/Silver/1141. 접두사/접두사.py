@@ -15,7 +15,7 @@ for i in range(n):
             is_prefix = True
             break
 
-    # 접두어 관계가 없는 경우에만 현재 단어 word를 추가
+    # 접두사 아니면 cnt 추가
     if not is_prefix:
         cnt += 1
 
