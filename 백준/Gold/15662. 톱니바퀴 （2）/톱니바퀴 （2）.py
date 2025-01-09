@@ -1,49 +1,57 @@
-from collections import deque
+t = int(input())  # 톱니바퀴의 갯수
+# 톱니바퀴 상태
+condition = [list(input().strip()) for _ in range(t)]
+# print(condition) # [['10101111'], ['01111101'], ['11001110'], ['00000010']]
+k = int(input())  # 회전 횟수
+# 회전 시킬 방법
+way = [list(map(int, input().split())) for _ in range(k)]
+# print(way)  # [['3', '-1'], ['1', '1']] -> [[3, -1], [1, 1]] (문자열로 작업하면 슬라이싱 결과를 새로 저장하기 어려움)
 
-T = int(input())
-data = []
-for _ in range(T):
-    data.append(deque(input()))
-K = int(input())
-# 1이 오른쪽 회전(시계방향)-1이 왼쪽으로 회전
-for i in range(K):
-    num, dif = map(int,input().split())
-    md = dif # 처음 방향을 기억해놓을라고
-    num -= 1 # idx는 0부터 시작이니까 1을 빼줌
-    mnum = num # 처음 숫자를 기억해놓을라고
-    temp = dict() # 매 반복마다 새로운 사전형을 만들 것이다.
-    while num > 0: # 자신보다 작은 톱니바퀴에 다가가는 것이다.
-        if data[num][6] == data[num-1][2]: # 일단 달라야 회전시키고 뭘 하는데 같아지는 순간 톱니바퀴는 돌아가지 않는다.
-            break 
-        else: # 맞닿은 톱니바퀴의 번호가 다르다
-            # 지금 돌리면 안 된다. 한 번에 돌려야 되는데
-            if num not in temp:
-                temp[num] = dif
-            if num-1 not in temp:
-                temp[num-1] = -1 * dif
-            dif *= -1 # 회전방향은 -1씩 변하니까
-            num -= 1 # 전 톱니바퀴로 다가가기 위해서 -1을 해준다.
-    dif = md # 처음 방향을 다시 집어넣어준다.
-    num = mnum
-    while num < T-1:
-        if data[num][2] == data[num+1][6]: # 일단 달라야 회전시키고 뭘 하는데 같아지는 순간 톱니바퀴는 돌아가지 않는다.
-            break 
-        else: # 맞닿은 톱니바퀴의 번호가 다를경우
-            if num not in temp:
-                temp[num] = dif
-            if (num+1) not in temp:
-                temp[(num+1)] = (-1 * dif)
-            num += 1
-            dif *= -1
-    for j in temp.keys():
-        data[j].rotate(temp[j])
-    if len(temp.keys()) == 0:
-        data[mnum].rotate(md)
 
-count = 0
+# 시계 방향 회전 함수
+def rotate(data):
+    return data[-1:] + data[:-1]  # 마지막 요소를 앞으로 이동
 
-for i in range(T):
-    if data[i][0] == '1':
-        count += 1
+# 반시계 방향 회전 함수
+def reverse_rotate(data):
+    return data[1:] + data[:1]  # 첫 번째 요소를 뒤로 이동
 
-print(count)
+# 연쇄 회전을 처리하는 함수
+def rotate_gears(gear_index, direction):
+    visited = [False] * t  # 이미 회전한 톱니바퀴를 추적
+    rotations = [(gear_index, direction)]  # 회전해야 할 톱니바퀴와 방향을 저장
+
+    # 회전 연쇄 처리
+    while rotations:
+        current_index, current_direction = rotations.pop(0)
+        if visited[current_index]:
+            continue
+        visited[current_index] = True
+
+        # 왼쪽 톱니바퀴 검사
+        if current_index > 0 and not visited[current_index - 1]:
+            if condition[current_index][6] != condition[current_index - 1][2]:
+                rotations.append((current_index - 1, -current_direction))
+
+        # 오른쪽 톱니바퀴 검사
+        if current_index < t - 1 and not visited[current_index + 1]:
+            if condition[current_index][2] != condition[current_index + 1][6]:
+                rotations.append((current_index + 1, -current_direction))
+
+        # 현재 톱니바퀴 회전
+        if current_direction == 1:  # 시계 방향
+            condition[current_index] = rotate(condition[current_index])
+        elif current_direction == -1:  # 반시계 방향
+            condition[current_index] = reverse_rotate(condition[current_index])
+
+
+# 회전 명령 처리
+for num, direction in way:
+    rotate_gears(num - 1, direction)  # 번호는 1부터 시작하므로 인덱스는 num - 1
+
+# 12시 방향이 S극인 톱니바퀴의 개수 출력
+answer = 0
+for gear in condition:
+    if gear[0] == '1':
+        answer += 1
+print(answer)
