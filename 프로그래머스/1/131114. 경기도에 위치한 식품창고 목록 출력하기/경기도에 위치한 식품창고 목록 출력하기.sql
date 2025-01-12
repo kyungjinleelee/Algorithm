@@ -1,0 +1,11 @@
+SELECT 
+    WAREHOUSE_ID, 
+    WAREHOUSE_NAME, 
+    ADDRESS, 
+    COALESCE(FREEZER_YN, 'N') AS FREEZER_YN
+FROM 
+    FOOD_WAREHOUSE
+WHERE 
+    ADDRESS LIKE '경기도%'  -- 경기도에 위치한 창고 조회
+ORDER BY 
+    WAREHOUSE_ID;  -- 창고 ID 기준 오름차순 정렬
