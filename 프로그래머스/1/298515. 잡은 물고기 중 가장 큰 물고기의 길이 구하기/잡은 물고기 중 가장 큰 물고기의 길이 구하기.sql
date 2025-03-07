@@ -1,0 +1,2 @@
+SELECT CONCAT(MAX(LENGTH), 'cm') AS MAX_LENGTH -- 최대값을 문자열로 변환하고 cm을 붙임
+FROM FISH_INFO
