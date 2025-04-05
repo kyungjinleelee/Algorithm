@@ -1,0 +1,4 @@
+-- PRODUCT 테이블의 상품 중 가장 높은 판매가를 출력하기
+SELECT MAX(PRICE) AS MAX_PRICE
+FROM PRODUCT
+;
