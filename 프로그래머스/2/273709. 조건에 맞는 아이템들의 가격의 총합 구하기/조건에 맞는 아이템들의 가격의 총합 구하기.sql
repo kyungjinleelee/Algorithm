@@ -1,0 +1,4 @@
+SELECT SUM(PRICE) AS TOTAL_PRICE -- 가격의 총합을 구하기
+FROM ITEM_INFO
+WHERE RARITY = 'LEGEND'          -- 희귀도가 'LEGEND'인 아이템
+;
