@@ -1,0 +1,7 @@
+-- ROOT 아이템을 찾아 아이템 ID, 아이템 명을 출력하기
+SELECT I.ITEM_ID, ITEM_NAME
+FROM ITEM_INFO I
+JOIN ITEM_TREE F
+ON I.ITEM_ID = F.ITEM_ID
+WHERE PARENT_ITEM_ID IS NULL    -- ROOT 아이템(부모 아이템의 ID가 null인 것)
+;
