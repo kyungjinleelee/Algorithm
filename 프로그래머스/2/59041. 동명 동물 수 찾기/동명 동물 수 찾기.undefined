@@ -1,0 +1,13 @@
+SELECT 
+    NAME,               -- 이름 출력
+    COUNT(*) AS COUNT   -- 등장 횟수를 COUNT로 출력
+FROM 
+    ANIMAL_INS
+WHERE 
+    NAME IS NOT NULL    -- 이름이 NULL인 데이터 제외
+GROUP BY 
+    NAME                -- 이름별로 묶기
+HAVING 
+    COUNT(NAME) >= 2    -- 이름이 2번 이상 나온 경우만 필터링
+ORDER BY 1              -- 이름 순으로 오름차순 정렬
+;
