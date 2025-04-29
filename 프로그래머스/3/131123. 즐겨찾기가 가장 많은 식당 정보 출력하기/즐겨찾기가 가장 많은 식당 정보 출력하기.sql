@@ -1,0 +1,18 @@
+-- 음식 종류별 즐겨찾기 수가 가장 높은 식당 조회
+SELECT
+    FOOD_TYPE,
+    REST_ID,
+    REST_NAME,
+    FAVORITES
+FROM (
+    SELECT
+        FOOD_TYPE,
+        REST_ID,
+        REST_NAME,
+        FAVORITES,
+        ROW_NUMBER() OVER (PARTITION BY FOOD_TYPE ORDER BY FAVORITES DESC) AS RN
+    FROM REST_INFO
+) SUB
+WHERE RN = 1
+ORDER BY FOOD_TYPE DESC
+;
