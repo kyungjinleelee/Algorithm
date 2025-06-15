@@ -1,5 +1,5 @@
 SELECT 
-    U.USER_ID, 
+    USER_ID, 
     NICKNAME, 
     CONCAT(CITY, ' ', STREET_ADDRESS1, ' ', STREET_ADDRESS2) AS '전체주소', 
     CONCAT(
