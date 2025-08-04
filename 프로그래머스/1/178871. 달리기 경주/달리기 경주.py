@@ -1,19 +1,14 @@
 def solution(players, callings):
-    # 선수 이름을 키로, 현재 등수를 값으로 저장하는 딕셔너리
-    player_positions = {player: i for i, player in enumerate(players)}
+    # 선수 이름 : 현재 등수(인덱스) 딕셔너리 생성
+    idx = {name : i for i, name in enumerate(players)}
     
     for call in callings:
-        curr_position = player_positions[call]   # 추월한 선수의 현재 위치
+        # 추월한 선수의 현재 등수(인덱스)
+        i = idx[call]
+        # 바로 앞 선수와 자리 바꾸기
+        players[i], players[i - 1] = players[i - 1], players[i]
+        # 딕셔너리의 인덱스 정보 갱신
+        idx[players[i]] = i
+        idx[players[i - 1]] = i - 1
         
-        # 앞에 있는 선수와의 자리 교환
-        if curr_position > 0:
-            front_player = players[curr_position - 1]
-            
-            # 자리 교환
-            players[curr_position - 1], players[curr_position] = players[curr_position], players[curr_position - 1]
-            
-            # 딕셔너리에서 두 선수의 위치 정보 업데이트
-            player_positions[call] -= 1
-            player_positions[front_player] += 1
-    
     return players
